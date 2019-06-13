@@ -1,5 +1,6 @@
 import typescript from "rollup-plugin-typescript2";
 import liveServer from "rollup-plugin-live-server";
+import sourcemaps from "rollup-plugin-sourcemaps";
 
 const output = process.argv.includes("-w") ? [
   {
@@ -46,5 +47,6 @@ export default {
     typescript({
       inlineSourceMap: true
     }),
+    sourcemaps(),
   ]
 }

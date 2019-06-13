@@ -4,6 +4,7 @@ var lib = (function () {
   function sayFoo() {
       console.log("foo");
   }
+  sayFoo();
 
   return sayFoo;
 
