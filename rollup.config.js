@@ -1,12 +1,12 @@
 import typescript from "rollup-plugin-typescript2";
 import liveServer from "rollup-plugin-live-server";
-import sourcemaps from "rollup-plugin-sourcemaps";
 
 const output = process.argv.includes("-w") ? [
   {
     file: "./example/lib.js",
     format: "iife",
-    name: "lib"
+    name: "lib",
+    sourcemap: true
   }
 ] : [
   {
@@ -25,7 +25,8 @@ const output = process.argv.includes("-w") ? [
   {
     file: "./example/lib.js",
     format: "iife",
-    name: "lib"
+    name: "lib",
+    sourcemap: true
   }
 ];
 
@@ -46,7 +47,6 @@ export default {
   plugins: [
     typescript({
       inlineSourceMap: true
-    }),
-    sourcemaps(),
+    })
   ]
 }

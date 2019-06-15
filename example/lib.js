@@ -9,3 +9,4 @@ var lib = (function () {
   return sayFoo;
 
 }());
+//# sourceMappingURL=lib.js.map
