@@ -1,9 +1,10 @@
+import vertexShaderCode from './static/vertexShader';
+
 export default class Plotter {
   public canvas: HTMLCanvasElement;
   public gl: WebGLRenderingContext;
 
-  // Geometry of the drawing surface
-  private vertexCode: string = 'attribute vec2 coordinates;void main(void){gl_Position=vec4(coordinates,0.0,1.0);}';
+  private vertexCode: string = vertexShaderCode;
   private vertices: number[] = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
   private shaderProgram: WebGLProgram;
   private vertexBuffer: WebGLBuffer;
@@ -15,7 +16,7 @@ export default class Plotter {
     this.shaderProgram = this.gl.createProgram();
 
     this.createBuffer();
-    this.compileShader(this.gl.VERTEX_SHADER, this.vertexCode);
+    this.useShader(this.vertexCode, this.gl.VERTEX_SHADER);
   }
 
   private createBuffer() {
@@ -25,10 +26,15 @@ export default class Plotter {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
   }
 
-  private compileShader(type: number, code: string) {
+  private useShader(code: string, type: number = this.gl.FRAGMENT_SHADER) {
     const shader: WebGLShader = this.gl.createShader(type);
     this.gl.shaderSource(shader, code);
     this.gl.compileShader(shader);
+
+    if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+      console.error(this.gl.getShaderInfoLog(shader));
+    }
+
     this.gl.attachShader(this.shaderProgram, shader);
   }
 
