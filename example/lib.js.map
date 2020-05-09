@@ -1,0 +1,1 @@
+{"version":3,"file":"lib.js","sources":["../src/index.ts"],"sourcesContent":["export default function sayFoo() {\n  console.log(\"foo\");\n}\n\nsayFoo();\n"],"names":[],"mappings":";;;WAAwB,MAAM;MAC5B,OAAO,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC;EACrB,CAAC;EAED,MAAM,EAAE,CAAC;;;;;;;;"}
