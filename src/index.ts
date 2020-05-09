@@ -1,13 +1,33 @@
+import clear from "./methods/clear";
+import clearColor from "./methods/clearColor";
+import createBuffer from "./methods/createBuffer";
+import resize from "./methods/resize";
+import render from "./methods/render";
+import run from "./methods/run";
+import useShader from "./methods/useShader";
+
 import vertexShaderCode from './static/vertexShader';
+
+/**
+ * ToDo: Add a dispose() function
+ */
 
 export default class Plotter {
   public canvas: HTMLCanvasElement;
   public gl: WebGLRenderingContext;
 
   private vertexCode: string = vertexShaderCode;
-  private vertices: number[] = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
+  private vertices: number[] = [-1, -1, -1, 1, 1, -1, 1, 1];
   private shaderProgram: WebGLProgram;
   private vertexBuffer: WebGLBuffer;
+
+  private createBuffer = createBuffer;
+  public clear = clear;
+  public clearColor = clearColor;
+  public render = render;
+  public resize = resize;
+  public run = run;
+  public useShader = useShader;
 
   constructor(canvas: HTMLCanvasElement) {
     // Setting Canvas and creating a rendering context
@@ -17,40 +37,5 @@ export default class Plotter {
 
     this.createBuffer();
     this.useShader(this.vertexCode, this.gl.VERTEX_SHADER);
-  }
-
-  private createBuffer() {
-    this.vertexBuffer = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertices), this.gl.STATIC_DRAW);
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
-  }
-
-  private useShader(code: string, type: number = this.gl.FRAGMENT_SHADER) {
-    const shader: WebGLShader = this.gl.createShader(type);
-    this.gl.shaderSource(shader, code);
-    this.gl.compileShader(shader);
-
-    if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-      console.error(this.gl.getShaderInfoLog(shader));
-    }
-
-    this.gl.attachShader(this.shaderProgram, shader);
-  }
-
-  private run() {
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
-    this.gl.linkProgram(this.shaderProgram);
-    this.gl.useProgram(this.shaderProgram);
-
-    const coord = this.gl.getAttribLocation(this.shaderProgram, "coordinates");
-    this.gl.vertexAttribPointer(coord, 2, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(coord);
-
-    this.gl.clearColor(0.5, 0.5, 0.5, 0.9);
-    this.gl.enable(this.gl.DEPTH_TEST);
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-    this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
-    this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
   }
 }
