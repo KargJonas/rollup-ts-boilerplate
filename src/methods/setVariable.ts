@@ -28,14 +28,22 @@
  *      - One for registering a new variable before the shader is complied
  *      - One to update variable values at runtime
  *    - Leave state management to the user
+ *
+ * One important note on the variable system:
+ *  This is a one-way system. You can push data to glsl but not back.
+ *  (Unless my intention with this project changes to something like utilizing the GPU in JS)
+ *
+ * ToDo: Handle other data types properly.
  */
 
 /**
+ * Set the value of a variable, which has previously been registered.
  * @param name Name of the variable in glsl
  * @param value New value of the variable
  */
-export default function updateVariable(name: string, value: any) {
+export default function setVariable(name: string, value: any) {
   const uniformLocation = this.gl.getUniformLocation(this.shaderProgram, name);
+  console.log(uniformLocation)
 
   // Check if variable is already registered
   // if (!uniformLocation) { }

@@ -1,3 +1,5 @@
+/* Default vertex shader */
+
 export default `
 
 attribute vec2 position;

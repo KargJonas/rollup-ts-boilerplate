@@ -1,12 +1,13 @@
 import clear from "./methods/clear";
 import clearColor from "./methods/clearColor";
 import createBuffer from "./methods/createBuffer";
+import draw from "./methods/draw";
+import precision from "./methods/precision";
 import resize from "./methods/resize";
-import render from "./methods/render";
 import run from "./methods/run";
 import useShader from "./methods/useShader";
 import registerVariable from "./methods/registerVariable";
-import variable from "./methods/registerVariable"
+import setVariable from "./methods/setVariable"
 
 import vertexShaderCode from './static/vertexShader';
 
@@ -23,15 +24,17 @@ export default class Plotter {
   private shaderProgram: WebGLProgram;
   private vertexBuffer: WebGLBuffer;
   private variables: Variable[] = [];
+  private shaderPrecisionPrefix: string = "precision mediump float;";
 
   private createBuffer = createBuffer;
+  private precision = precision;
   public clear = clear;
-  public clearColor = clearColor;
-  public render = render;
-  public resize = resize;
   public run = run;
+  public clearColor = clearColor;
+  public draw = draw;
+  public resize = resize;
   public useShader = useShader;
-  public variable = variable;
+  public setVariable = setVariable;
   public registerVariable = registerVariable;
 
   constructor(canvas: HTMLCanvasElement) {
