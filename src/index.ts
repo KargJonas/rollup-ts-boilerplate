@@ -5,6 +5,8 @@ import resize from "./methods/resize";
 import render from "./methods/render";
 import run from "./methods/run";
 import useShader from "./methods/useShader";
+import registerVariable from "./methods/registerVariable";
+import variable from "./methods/registerVariable"
 
 import vertexShaderCode from './static/vertexShader';
 
@@ -20,6 +22,7 @@ export default class Plotter {
   private vertices: number[] = [-1, -1, -1, 1, 1, -1, 1, 1];
   private shaderProgram: WebGLProgram;
   private vertexBuffer: WebGLBuffer;
+  private variables: Variable[] = [];
 
   private createBuffer = createBuffer;
   public clear = clear;
@@ -28,6 +31,8 @@ export default class Plotter {
   public resize = resize;
   public run = run;
   public useShader = useShader;
+  public variable = variable;
+  public registerVariable = registerVariable;
 
   constructor(canvas: HTMLCanvasElement) {
     // Setting Canvas and creating a rendering context
@@ -37,5 +42,7 @@ export default class Plotter {
 
     this.createBuffer();
     this.useShader(this.vertexCode, this.gl.VERTEX_SHADER);
+
+    // 1f, 1i, 2f, 2i, 3f, 3i, 4f, 4i, 1fv, 1iv, 2fv, 2iv, 3fv, 3iv, 4fv, 4iv
   }
 }

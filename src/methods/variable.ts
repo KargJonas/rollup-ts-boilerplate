@@ -30,7 +30,16 @@
  *    - Leave state management to the user
  */
 
-export default function variable() {
+/**
+ * @param name Name of the variable in glsl
+ * @param value New value of the variable
+ */
+export default function updateVariable(name: string, value: any) {
+  const uniformLocation = this.gl.getUniformLocation(this.shaderProgram, name);
+
+  // Check if variable is already registered
+  // if (!uniformLocation) { }
+
   // gl.uniform1f(gl.getUniformLocation(shaderProgram, "time"), time);
   // gl.uniform3f(gl.getUniformLocation(shaderProgram, "camPos"), cam.pos.x, cam.pos.y, cam.pos.z);
   // gl.uniform3f(gl.getUniformLocation(shaderProgram, "camRot"), cam.rot.x, cam.rot.y, cam.rot.z);
