@@ -33,7 +33,7 @@
  *  This is a one-way system. You can push data to glsl but not back.
  *  (Unless my intention with this project changes to something like utilizing the GPU in JS)
  *
- * ToDo: Handle other data types properly.
+ * ToDo: Handle compound data types properly.
  */
 
 /**
