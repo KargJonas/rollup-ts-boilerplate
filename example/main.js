@@ -5,7 +5,7 @@ p.resize(500, 500);
 var fragCode = `
 void main() {
   vec2 pos = gl_FragCoord.xy / resolution;
-  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+  gl_FragColor = vec4(gl_FragCoord.x / 1000.0, 0.0, 0.0, 1.0);
 }
 `;
 
@@ -15,8 +15,21 @@ p.registerVariable("float", "time");
 p.useShader(fragCode);
 p.run();
 
-p.setVariable("time", 10);
-
 // p.clearColor(0, 0, 0, 1);
 p.clear();
-p.draw();
+
+let time = 0;
+let start;
+
+function update() {
+  time++;
+  p.setVariable("time", time);
+  p.draw();
+  // requestAnimationFrame(update);
+}
+
+// start = new Date().getMilliseconds();
+update();
+// setTimeout(() => {
+//   console.log(time)
+// }, 1000);

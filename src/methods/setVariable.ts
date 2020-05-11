@@ -41,14 +41,11 @@
  * @param name Name of the variable in glsl
  * @param value New value of the variable
  */
-export default function setVariable(name: string, value: any) {
+export default function setVariable(name: string, values: number) {
   const uniformLocation = this.gl.getUniformLocation(this.shaderProgram, name);
-  console.log(uniformLocation)
 
-  // Check if variable is already registered
+  // Check if variable is registered
   // if (!uniformLocation) { }
 
-  // gl.uniform1f(gl.getUniformLocation(shaderProgram, "time"), time);
-  // gl.uniform3f(gl.getUniformLocation(shaderProgram, "camPos"), cam.pos.x, cam.pos.y, cam.pos.z);
-  // gl.uniform3f(gl.getUniformLocation(shaderProgram, "camRot"), cam.rot.x, cam.rot.y, cam.rot.z);
+  this.gl.uniform1f(uniformLocation, values);
 }
